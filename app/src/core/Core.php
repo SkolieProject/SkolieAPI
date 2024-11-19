@@ -34,7 +34,6 @@ class Core
             return;
         }
         
-        $controllerClass = $prefixController . $controllerClass;
         $controller = new $controllerClass();
 
         $controller->$action(new Request, new Response, $urlData['id'], $urlData['query']);

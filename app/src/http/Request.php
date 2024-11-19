@@ -10,7 +10,7 @@ class Request
             $email = $_SERVER['PHP_AUTH_USER'];
             $password = $_SERVER['PHP_AUTH_PW'];
 
-            return ['email' => $email, 'password' => $password];
+            return ['username' => $email, 'password' => $password];
         }
         return false;
     }

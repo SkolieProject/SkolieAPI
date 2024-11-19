@@ -1,0 +1,16 @@
+{
+    "symbols.folders.associations": {
+
+        "model": "folder-blue",
+        "attributes": "folder-gray",
+        "controllers": "folder-blue-outline",
+        "exceptions": "folder-red",
+        "http": "folder-green",
+        "src": "folder-blue-code",
+        "repo": "folder_database",
+    },
+
+    "symbols.files.associations": {
+        "Sessioner.php": "firebase"
+    }
+}
