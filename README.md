@@ -12,8 +12,34 @@
 
 ## `/login/`
 
-- Headers: Authorization
-  username:
-  password:
+### Return values
 
-- Returns JWT
+- JWT in Authorization header
+- Body of response
+
+### Example request
+
+`/login/` `METHOD: GET`
+username: email@email.complete
+password: p4ssw0rd
+
+### Example response
+
+`JSON`
+
+```
+
+{
+  "warning": "OK",
+  "status message": "You have loged in sucessfully",
+  "userinfo": {
+    "name": "Rosana Paiolo",
+    "subject": "MATM",
+    "classes": [
+      "EM3A",
+      "EM3B"
+    ]
+  }
+}
+
+```
