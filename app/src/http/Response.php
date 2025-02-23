@@ -16,7 +16,7 @@ class Response
         }
 
         $data = array_merge(
-            ['Warning' => $warning, 'Status message' => $message],
+            ['warning' => $warning, 'status message' => $message],
             $data
         );
 

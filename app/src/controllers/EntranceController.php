@@ -32,7 +32,7 @@ class EntranceController
         $acc = $repository->account;
 
         $acess_token = Sessioner::saveSession([...$user_auth, 'id' => $acc->id]);
-        $response::Response(200, 'OK', 'You have loged in sucessfully', $acc->overview(), jwt: $acess_token);
+        $response::Response(200, 'OK', 'You have loged in sucessfully', ['userinfo' => $acc->overview()], jwt: $acess_token);
         return;
     }
 }
