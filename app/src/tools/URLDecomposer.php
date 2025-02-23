@@ -1,35 +1,39 @@
 <?php
-namespace Minuz\BaseApi\Tools;
 
-use Minuz\BaseApi\tools\Parser;
+namespace Minuz\SkolieAPI\Tools;
+
+use Minuz\SkolieAPI\tools\Parser;
 
 
 class URLDecomposer
 {
-    public static function Detach(string $url, array &$urlInfo = null): void
+    public static function Detach(string $url, array &$url_info = null): void
     {
-        $routerPath = $url;
-        $urlInfo = [
+        $router_path = $url;
+        $url_info = [
             'id' => false,
             'query' => false
         ];
-        $queryString = parse_url($url, PHP_URL_QUERY);
-        
-        $requestPath = parse_url($url, PHP_URL_PATH);
-        $patternId = '~\/[\w]+\/[\w]+\/([\S]+)~';
-        if ( preg_match($patternId, $requestPath, $matches) ) {
+        $query_string = parse_url($url, PHP_URL_QUERY);
+
+        $request_path = parse_url($url, PHP_URL_PATH);
+        $pattern_id = '~\/[\w]+\/([\S]+)~';
+        if (preg_match($pattern_id, $request_path, $matches)) {
+
             $id = $matches[1];
-            $routerPath = str_replace($id, '{id}', $routerPath);
-            $urlInfo['id'] = $id;
+
+
+            $router_path = str_replace($id, '{id}', $router_path);
+            $url_info['id'] = $id;
         }
-    
-        if ( ! empty($queryString) ) {
-            parse_str($queryString, $query);
+
+        if (! empty($query_string)) {
+            parse_str($query_string, $query);
             Parser::HydrateNulls($query, false);
-            $routerPath = str_replace($queryString, '{query}', $routerPath);
-            $urlInfo['query'] = $query;
+            $router_path = str_replace($query_string, '{query}', $router_path);
+            $url_info['query'] = $query;
         }
-    
-        $urlInfo['path'] = $routerPath;
+
+        $url_info['path'] = $router_path;
     }
 }

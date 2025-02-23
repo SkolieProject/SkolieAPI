@@ -10,7 +10,4 @@
         "repo": "folder_database",
     },
 
-    "symbols.files.associations": {
-        "Sessioner.php": "firebase"
-    }
 }

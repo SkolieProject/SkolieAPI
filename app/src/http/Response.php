@@ -1,5 +1,6 @@
 <?php
-namespace Minuz\BaseApi\http;
+
+namespace Minuz\SkolieAPI\http;
 
 
 class Response
@@ -10,14 +11,15 @@ class Response
         header("Access-Control-Allow-Origin: *");
 
 
-        if (  $jwt != null ) {
+        if ($jwt != null) {
             header("Authorization: Bearer $jwt");
         }
-        
+
         $data = array_merge(
-            ['Warning' => $warning, 'Status message' => $message], $data
+            ['Warning' => $warning, 'Status message' => $message],
+            $data
         );
-        
+
         $json = json_encode($data);
 
         echo $json;

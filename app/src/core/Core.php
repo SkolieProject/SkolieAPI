@@ -1,44 +1,42 @@
 <?php
 
-namespace Minuz\BaseApi\Core;
+namespace Minuz\SkolieAPI\core;
 
-use Minuz\BaseApi\exceptions\RouteNotFound;
-use Minuz\BaseApi\http\Request;
-use Minuz\BaseApi\http\Response;
-use Minuz\BaseApi\http\Router;
-use Minuz\BaseApi\tools\URLDecomposer;
+use Minuz\SkolieAPI\exceptions\RouteNotFound;
+use Minuz\SkolieAPI\http\Request;
+use Minuz\SkolieAPI\http\Response;
+use Minuz\SkolieAPI\http\Router;
+use Minuz\SkolieAPI\tools\URLDecomposer;
 
 class Core
 {
     public static function dispatch(Router $router)
     {
-        $prefixController = 'Minuz\\BaseApi\\controllers\\';
+        $prefixController = 'Minuz\\SkolieAPI\\controllers\\';
 
         $url = Request::path();
         URLDecomposer::Detach($url, $urlData);
-        
+
         $route = $urlData['path'];
-        
-        if ( Request::path() == '/' ) {
+
+        if (Request::path() == '/') {
             Response::Response(200, 'Ok', 'Hello from BaseAPI!');
             return;
         }
         try {
             [$controllerClass, $action] = $router->resolve($route, Request::method());
-        }
-        catch (RouteNotFound) {
+        } catch (RouteNotFound) {
             $controllerClass = $prefixController . 'WrongRequestController';
             $controller = new $controllerClass();
             $controller->index(new Request, new Response);
-        
+
             return;
         }
-        
+
         $controller = new $controllerClass();
 
         $controller->$action(new Request, new Response, $urlData['id'], $urlData['query']);
 
         return;
-
     }
 }

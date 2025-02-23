@@ -25,7 +25,7 @@ class ComposerStaticInita9aa2ca5d6f5dcc64e984f88fabbba86
         ),
         'M' => 
         array (
-            'Minuz\\BaseApi\\' => 14,
+            'Minuz\\SkolieAPI\\' => 16,
         ),
         'G' => 
         array (
@@ -58,7 +58,7 @@ class ComposerStaticInita9aa2ca5d6f5dcc64e984f88fabbba86
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Minuz\\BaseApi\\' => 
+        'Minuz\\SkolieAPI\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/src',
         ),

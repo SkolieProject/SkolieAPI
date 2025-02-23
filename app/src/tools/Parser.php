@@ -1,6 +1,6 @@
 <?php
 
-namespace Minuz\BaseApi\Tools;
+namespace Minuz\SkolieAPI\tools;
 
 class Parser
 {
@@ -16,22 +16,25 @@ class Parser
 
 
 
-    public static function HaveValues(array $data, array $checklist): array
+    public static function HaveValues(array $data, array $checklist): bool
     {
-        $markedChecklist = [];
-        foreach( $checklist as $checklistItem) {
-            $markedChecklist[$checklistItem] = isset($data[$checklistItem]) ? true : false;
+        foreach ($checklist as $checklist_item) {
+            if (is_null($data[$checklist_item]) || $data[$checklist_item] == "") {
+                return false;
+            }
         }
-        
-        return $markedChecklist;
+
+        return true;
     }
 
 
 
     public static function HaveNullVaLues(array $data): bool
     {
-        foreach ( $data as $item ) {
-            if ( $item == null ) { return true; }
+        foreach ($data as $item) {
+            if ($item == null) {
+                return true;
+            }
         }
 
         return false;

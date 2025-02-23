@@ -1,10 +1,9 @@
 <?php
-namespace Minuz\BaseApi\attributes;
+
+namespace Minuz\SkolieAPI\attributes;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class Route
 {
-    public function __construct(public string $path, public string $method = 'GET')
-    {
-    }
+    public function __construct(public string $path, public string $method = 'GET') {}
 }

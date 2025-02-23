@@ -3,7 +3,7 @@
         'name' => 'minuz/base-api',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6e8311869aab9c57f06002cbd995861b9b25db02',
+        'reference' => '64fa605128292bb4525b1984f492c5a9c8316a82',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'firebase/php-jwt' => array(
-            'pretty_version' => 'v6.10.1',
-            'version' => '6.10.1.0',
-            'reference' => '500501c2ce893c824c801da135d02661199f60c5',
+            'pretty_version' => 'v6.11.0',
+            'version' => '6.11.0.0',
+            'reference' => '8f718f4dfc9c5d5f0c994cdfd103921b43592712',
             'type' => 'library',
             'install_path' => __DIR__ . '/../firebase/php-jwt',
             'aliases' => array(),
@@ -31,7 +31,7 @@
         'minuz/base-api' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6e8311869aab9c57f06002cbd995861b9b25db02',
+            'reference' => '64fa605128292bb4525b1984f492c5a9c8316a82',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

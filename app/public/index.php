@@ -2,14 +2,16 @@
 require_once __DIR__ . '/../src/config/bootstrap.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Minuz\BaseApi\controllers\LoginExampleController;
-use Minuz\BaseApi\Core\Core;
-use Minuz\BaseApi\http\Router;
+use Minuz\SkolieAPI\controllers\AssayController;
+use Minuz\SkolieAPI\controllers\EntranceController;
+use Minuz\SkolieAPI\core\Core;
+use Minuz\SkolieAPI\http\Router;
 
 
-$router = new Router(); 
+$router = new Router();
 $router->registryControllersRoutes([
-    LoginExampleController::class
+    EntranceController::class,
+    AssayController::class
 ]);
 
 Core::dispatch($router);

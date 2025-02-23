@@ -1,5 +1,6 @@
 <?php
-namespace Minuz\BaseApi\config\CacheTimer;
+
+namespace Minuz\SkolieAPI\config\CacheTimer;
 
 class CacheExpires
 {
