@@ -16,11 +16,11 @@ class AssaySeeder extends Seeder
     public function run(): void
     {
         Assay::factory()
-            ->count(3)
+            ->count(2)
             ->has(Question::factory()
                 ->count(10)
                 ->has(Alternative::factory()
-                    ->count(5)
+                    ->count(4)
                 )
             )
             ->create();
