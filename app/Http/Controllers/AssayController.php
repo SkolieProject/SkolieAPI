@@ -15,25 +15,18 @@ class AssayController extends Controller
     }
 
 
-    public function getAssay(Assay $assay)
+    public function getAssays(Assay $assay)
+    {
+        
+    }
+
+    public function rewriteAssay(AssayRequest $request)
     {
         
     }
 
 
-    public function getAssaysFromClass(Request $request)
-    {
-
-    }
-
-
-    public function editAssay(AssayRequest $request)
-    {
-        
-    }
-
-
-    public function deleteAssay(Assay $assay)
+    public function eraseAssay(Assay $assay)
     {
         
     }
