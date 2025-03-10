@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ClassTag;
+use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +16,8 @@ return new class extends Migration
         Schema::create('teacher_to_classes', function (Blueprint $table) {
             $table->id();
             $table->string('class');
-            $table->foreignId('teacher_id')->references('id')->on('teachers');
-            $table->foreignId('class_id')->references('id')->on('class_tags');
+            $table->foreignIdFor(Teacher::class);
+            $table->foreignIdFor(ClassTag::class);
             $table->timestamps();
         });
     }

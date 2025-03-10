@@ -4,6 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\ClassTag;
+use App\Models\Subject;
+use App\Models\Teacher;
+
 return new class extends Migration
 {
     /**
@@ -16,9 +20,9 @@ return new class extends Migration
             $table->string('title');
             $table->datetime('deadline');
             $table->boolean('is_visible')->default(false);
-            $table->foreignId('subject_id')->references('id')->on('subjects');
-            $table->foreignId('teacher_id')->references('id')->on('teachers');
-            $table->foreignId('class_id')->references('id')->on('class_tags');
+            $table->boolean('is_answerable')->default(false);
+            $table->foreignIdFor(Subject::class);
+            $table->foreignIdFor(Teacher::class);
             $table->timestamps();
         });
     }

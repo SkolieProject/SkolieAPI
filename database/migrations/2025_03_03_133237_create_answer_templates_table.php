@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Alternative;
+use App\Models\Answer;
+use App\Models\Question;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('answer_templates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->references('id')->on('questions');
-            $table->string('answered');
-            $table->foreignId('answer_id')->references('id')->on('answers');
+            $table->foreignIdFor(Answer::class);
+            $table->foreignIdFor(Question::class); // Correct alternative o question
+            $table->foreignIdFor(Alternative::class);
             $table->timestamps();
         });
     }
