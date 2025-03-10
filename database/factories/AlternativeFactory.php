@@ -18,7 +18,7 @@ class AlternativeFactory extends Factory
     public function definition(): array
     {
         return [
-            'question_id' => Question::factory(),
+            'question_id' => Question::inRandomOrder()->first()->id,
             'alternative_text' => $this->faker->sentence(),        ];
     }
 }

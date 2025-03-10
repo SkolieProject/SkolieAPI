@@ -19,7 +19,7 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'assay_id' => Assay::inRandomOrder()->first()->id() ?? Assay::factory(),
+            'assay_id' => Assay::inRandomOrder()->first()->id ?? Assay::factory(),
             'question_text' => $this->faker->sentence(),
             'correct_alternative' => Alternative::factory(),
         ];

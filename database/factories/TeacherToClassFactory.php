@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\ClassTag;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class TeacherToClassFactory extends Factory
     public function definition(): array
     {
         return [
-            
+            'teacher_id' => Teacher::inRandomOrder()->first()->id,
+            'class_id' => ClassTag::inRandomOrder()->first()->id,
         ];
     }
 }

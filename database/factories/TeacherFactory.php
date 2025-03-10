@@ -19,8 +19,8 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'subject_id' => Subject::inRandomOrder()->first()->id ?? Subject::factory(),
+            'user_id' => User::factory()->teacher(),
+            'subject_id' => Subject::inRandomOrder()->first()->id,
         ];
     }
 }

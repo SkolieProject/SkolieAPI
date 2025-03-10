@@ -20,7 +20,7 @@ class StudentFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'class_id' => ClassTag::inRandomOrder()->first()->id ?? ClassTag::factory(),
+            'class_id' => ClassTag::inRandomOrder()->first()->id(),
         ];
     }
 }
