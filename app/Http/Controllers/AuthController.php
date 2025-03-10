@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,16 +43,9 @@ class AuthController extends Controller
 
 
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        $credentials = $request->validate([
-            'name' => 'required',
-            'email' => ['required, email'],
-            'password' => 'required',
-            'role' => 'required',
-            'subject_name' => 'required_if:role,TCHR',
-            'class_id' => 'required_if:role,STDNT'
-        ]);
+        $credentials = $request->validated();
 
         $user = User::create($credentials);
         if ($user->role === 'STDNT') {
@@ -79,5 +73,12 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Could not create user',
         ],  400);
+    }
+
+
+
+    public function me(Request $request)
+    {
+        return response()->json(['user' => $request->user()]);
     }
 }
