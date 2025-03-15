@@ -13,31 +13,31 @@ class Teacher extends Model
  
     protected $fillable = [
         'user_id',
-        'subject_name',
+        'subject_id',
     ];
 
 
 
     public function user(): HasOne
     {
-        return $this->hasOne(User::class, "user_id");
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
 
     public function subject(): HasOne
     {
-        return $this->hasOne(Subject::class, "subject_id");
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
 
     
     public function classes(): HasMany
     {
-        return $this->HasMany(TeacherToClass::class, 'class');
+        return $this->HasMany(TeacherToClass::class, 'id', 'teacher_to_class_id');
     }
 
 
     public function assays(): HasMany
     {
-        return $this->hasMany(Assay::class, "teacher");
+        return $this->hasMany(Assay::class, 'id', 'teacher_id');
     }
 }

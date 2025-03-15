@@ -23,6 +23,6 @@ class Question extends Model
 
     public function alternatives(): HasMany
     {
-        return $this->hasMany(Alternative::class, 'question_id');
+        return $this->hasMany(Alternative::class, 'id', 'alternative_id');
     }
 }

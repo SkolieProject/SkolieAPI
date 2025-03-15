@@ -16,6 +16,6 @@ class ClassTag extends Model
 
     public function teachers(): HasMany
     {
-        return $this->HasMany(TeacherToClass::class, 'teacher');
+        return $this->HasMany(TeacherToClass::class, 'id', 'teacher_id');
     }
 }

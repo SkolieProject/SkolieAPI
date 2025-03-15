@@ -12,8 +12,8 @@ class Assay extends Model
  
     protected $fillable = [
         'title',
-        'teacher',
-        'class',
+        'teacher_id',
+        'class_id',
         'is_visible',
         'is_answerable',
     ];
@@ -21,6 +21,6 @@ class Assay extends Model
 
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class, "assay_id");
+        return $this->hasMany(Question::class, 'id', 'question_id');
     }
 }

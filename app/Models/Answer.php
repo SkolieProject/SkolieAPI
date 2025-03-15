@@ -11,19 +11,19 @@ class Answer extends Model
     use HasFactory;
     
     protected $fillable = [
-        'student',
-        'assay'
+        'student_id',
+        'assay_id'
     ];
 
 
     public function answer_template(): HasOne
     {
-        return $this->hasOne(AnswerTemplate::class, "answer_id");
+        return $this->hasOne(AnswerTemplate::class, 'id', 'answer_template_id');
     }
 
 
     public function grade(): HasOne
     {
-        return $this->hasOne(Grade::class, "answer");
+        return $this->hasOne(Grade::class, 'id', 'grade_id');
     }
 }
