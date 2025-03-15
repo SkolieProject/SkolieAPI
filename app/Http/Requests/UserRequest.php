@@ -25,9 +25,10 @@ class UserRequest extends FormRequest
             'name' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
-            'role' => 'required',
-            'subject_id' => ['required_if:role', 'TCHR'],
-            'class_id' => ['required_if:role', 'STDNT']
+            'role' => ['required', 'in:STDNT,TCHR'],
+            'subject_id' => ['required_if:role,TCHR'],
+            'classes_ids' => ['required_if:role,TCHR'],
+            'class_tag_id' => ['required_if:role,STDNT']
         ];
     }
 }
