@@ -20,7 +20,7 @@ class TeacherToClassFactory extends Factory
     {
         return [
             'teacher_id' => Teacher::inRandomOrder()->first()->id,
-            'class_id' => ClassTag::inRandomOrder()->first()->id,
+            'class_tag_id' => ClassTag::inRandomOrder()->first()->id,
         ];
     }
 }
