@@ -19,8 +19,8 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'class_id' => ClassTag::inRandomOrder()->first()->id(),
+            'user_id' => User::factory()->student(),
+            'class_tag_id' => ClassTag::inRandomOrder()->first()->id,
         ];
     }
 }
