@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\ClassTag;
 use App\Models\Subject;
 use App\Models\Teacher;
+use Database\Factories\ClassTagFactory;
 
 return new class extends Migration
 {
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->datetime('deadline');
+            $table->foreignIdFor(ClassTag::class)->nullable()->default(null);
             $table->boolean('is_visible')->default(false);
             $table->boolean('is_answerable')->default(false);
             $table->foreignIdFor(Subject::class);

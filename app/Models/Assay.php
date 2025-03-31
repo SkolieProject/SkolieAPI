@@ -13,7 +13,9 @@ class Assay extends Model
     protected $fillable = [
         'title',
         'teacher_id',
-        'class_id',
+        'class_tag_id',
+        'deadline',
+        'subject_id',
         'is_visible',
         'is_answerable',
     ];

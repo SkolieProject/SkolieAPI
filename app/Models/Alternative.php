@@ -11,7 +11,6 @@ class Alternative extends Model
 
     protected $fillable = [
         'question_id',
-        'label',
         'alternative_text'
     ];
 }

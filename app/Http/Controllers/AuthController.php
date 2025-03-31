@@ -83,71 +83,7 @@ class AuthController extends Controller
 
 
 
-    public function register(UserRequest $request)
-    {
-        $credentials = $request->validated();
 
-        $user = User::create($credentials);
-
-
-        response()->json([
-            'user' => $user,
-        ]);
-
-
-        if ($user->role == 'STDNT') {
-            $student = Student::create([
-                'user_id' => $user->id,
-                'class_tag_id' => $credentials['class_tag_id']
-            ]);
-
-            $student = Student::with('class_tag')->where('user_id', $user->id)->first();
-            $studentinfo = [
-                'id' => $student->id,
-                'class' => $student->class_tag
-            ];
-            return response()->json([
-                'user' => $user,
-                'student' => $studentinfo,
-            ]);
-        }
-
-
-
-        if ($user->role == 'TCHR') {
-            $teacher = Teacher::create([
-                'user_id' => $user->id,
-                'subject_id' => $credentials['subject_id']
-            ]);
-            $classes = collect($credentials['classes_ids'])->map(fn ($class_id) => [
-                'teacher_id' => $teacher->id,
-                'class_tag_id' => $class_id
-            ]);
-            $classes = TeacherToClass::create($classes->toArray());
-
-            $teacher = Teacher::with('subject')->where('user_id', $user->id)->first();
-            
-            $classes = TeacherToClass::with('class_tag')->where('teacher_id', $teacher->id)->get();
-            $classes = $classes->map(fn ($class) => $class->class_tag);
-            
-            $teacherinfo = [
-                'id' => $teacher->id,
-                'subject' => $teacher->subject,
-                'classes' => $classes
-            ];
-            return response()->json([
-                'user' => $user,
-                'teacher' => $teacherinfo,
-            ]); 
-       }
-
-
-       return response()->json([
-        'message' => 'Cannot create user',
-        400
-       ]);
-
-    }
 
 
 

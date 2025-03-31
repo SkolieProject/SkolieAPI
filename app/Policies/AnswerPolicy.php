@@ -23,10 +23,7 @@ class AnswerPolicy
     public function view(User $user, Answer $answer): bool
     {
         $assay = Assay::find($answer->assay_id);
-        if ($assay->is_answerable == true) {
-            return true;
-        }
-        return false;
+        return $assay->is_answerable || $user->role === 'TCHR';
     }
 
     /**
@@ -42,7 +39,8 @@ class AnswerPolicy
      */
     public function update(User $user, Answer $answer): bool
     {
-        return $user->role =- 'TCHR';
+        $assay = Assay::find($answer->assay_id);
+        return $user->role === 'TCHR' && $assay->teacher_id === $user->teacher->id;
     }
 
     /**

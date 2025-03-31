@@ -3,6 +3,8 @@
 namespace App\Policies;
 
 use App\Models\Assay;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -21,14 +23,29 @@ class AssayPolicy
      */
     public function view(User $user, Assay $assay): Response
     {
-        if($user->role == 'TCHR') {
-            return Response::allow();
-        }
-        if ($assay->is_visible == true) {
-            return Response::allow();
-        }
+        if ($user->role === 'TCHR') {
 
-        return Response::deny('You cannot acess this assay for now on', 401);
+            $logged_teacher = Teacher::where('user_id', $user->id)->first();
+            $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+            
+            dd($logged_teacher, $teacher_owner);
+            if (! ($logged_teacher && $teacher_owner)) {
+
+                return Response::deny('You cannot acess this assay for now on', 401);
+            }
+    
+        }
+        else if ($user->role === 'STDNT') {
+            
+            $logged_student = Student::where('user_id', $user->id)->first();
+            if ($logged_student->class_tag_id != $assay->class_tag_id) {
+
+                return Response::deny('You cannot acess this assay for now on', 401);
+            }
+        }
+        
+
+        return Response::allow();
     }
 
     /**
@@ -36,10 +53,14 @@ class AssayPolicy
      */
     public function create(User $user): Response
     {
-        if ($user->role == 'TCHR') {
-            Response::allow();
+        $logged_teacher = Teacher::where('user_id', $user->id)->first();
+        $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+        
+        dd($logged_teacher, $teacher_owner);
+        if (! ($logged_teacher && $teacher_owner)) {
+
+            return Response::deny('You cannot acess this assay for now on', 401);
         }
-        return Response::deny('You cannot create an assay', 403);
     }
 
     /**
@@ -47,10 +68,14 @@ class AssayPolicy
      */
     public function update(User $user, Assay $assay): Response
     {
-        if ($user->role == 'TCHR') {
+        $is_teacher = $user->role == 'TCHR';
+        
+        $logged_teacher = Teacher::where('user_id', $user->id)->first();
+        $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+        if ($is_teacher && $teacher_owner) {
             return Response::allow();
         }
-        return Response::deny('You cannot create an assay', 403);
+        return Response::deny('You cannot update this assay', 403);
     }
 
     /**
@@ -58,10 +83,14 @@ class AssayPolicy
      */
     public function delete(User $user, Assay $assay): Response
     {
-        if ($user->role == 'TCHR') {
+        $is_teacher = $user->role == 'TCHR';
+        
+        $logged_teacher = Teacher::where('user_id', $user->id)->first();
+        $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+        if ($is_teacher && $teacher_owner) {
             return Response::allow();
         }
-        return Response::deny('You cannot create an assay', 403);
+        return Response::deny('You cannot delete this assay', 403);
     }
 
     /**
@@ -69,10 +98,14 @@ class AssayPolicy
      */
     public function restore(User $user, Assay $assay): Response
     {
-        if ($user->role == 'TCHR') {
+        $is_teacher = $user->role == 'TCHR';
+        
+        $logged_teacher = Teacher::where('user_id', $user->id)->first();
+        $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+        if ($is_teacher && $teacher_owner) {
             return Response::allow();
         }
-        return Response::deny('You cannot create an assay', 403);
+        return Response::deny('You cannot restore this assay', 403);
     }
 
     /**
@@ -80,9 +113,13 @@ class AssayPolicy
      */
     public function forceDelete(User $user, Assay $assay): Response
     {
-        if ($user->role == 'TCHR') {
+        $is_teacher = $user->role == 'TCHR';
+        
+        $logged_teacher = Teacher::where('user_id', $user->id)->first();
+        $teacher_owner = $logged_teacher->id == $assay->teacher_id;
+        if ($is_teacher && $teacher_owner) {
             return Response::allow();
         }
-        return Response::deny('You cannot create an assay', 403);
+        return Response::deny('You cannot delete this assay', 403);
     }
 }

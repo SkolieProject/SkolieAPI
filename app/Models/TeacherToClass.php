@@ -12,7 +12,7 @@ class TeacherToClass extends Model
  
     protected $fillable = [
         'teacher_id',
-        'class_id'
+        'class_tag_id'
     ];
 
 

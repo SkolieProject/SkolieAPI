@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->role === 'ADMIN';
     }
 
     /**
@@ -23,12 +24,12 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'not_in:users,email'], 
             'password' => 'required',
-            'role' => ['required', 'in:STDNT,TCHR'],
-            'subject_id' => ['required_if:role,TCHR'],
-            'classes_ids' => ['required_if:role,TCHR'],
-            'class_tag_id' => ['required_if:role,STDNT']
+            'role' => ['required', 'in:STDNT,TCHR,ADMIN'],
+            'subject_id' => ['required_if:role,TCHR', 'exists:subjects,id'],
+            'classes_ids' => ['required_if:role,TCHR', 'array', 'exists:class_tags,id'],
+            'class_tag_id' => ['required_if:role,STDNT', 'exists:class_tags,id'],
         ];
     }
 }

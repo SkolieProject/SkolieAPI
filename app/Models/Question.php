@@ -12,16 +12,15 @@ class Question extends Model
  
     protected $fillable = [
         'assay_id',
-        'number',
         'question_text',
-        'correct_answer'
+        'correct_alternative'
     ];
 
 
 
 
 
-    public function alternatives(): HasMany
+    public function alternative(): HasMany
     {
         return $this->hasMany(Alternative::class, 'id', 'alternative_id');
     }
