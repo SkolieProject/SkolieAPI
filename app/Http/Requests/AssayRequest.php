@@ -37,9 +37,9 @@ class AssayRequest extends FormRequest
             "subject_id" => ["required", "exists:subjects,id"],
             "class_tag_id" => ["exists:class_tags,id"],
             "questions" => ["array"],
-            "questions.*.question_text" => ["required", "string"],
+            "questions.*.asking" => ["required", "string"],
             "questions.*.alternatives" => ["array"],
-            "questions.*.alternatives.*.alternative_text" => ["required", "string"],
+            "questions.*.alternatives.*.description" => ["required", "string"],
             "questions.*.alternatives.*.is_correct" => ["bool"]
         ];
     }

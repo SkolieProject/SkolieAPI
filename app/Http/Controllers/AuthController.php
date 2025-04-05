@@ -31,41 +31,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
         
-        if ($user->role == 'TCHR') {
-            $teacher = Teacher::with('subject')->where('user_id', $user->id)->first();
-            
-            $classes = TeacherToClass::with('class_tag')->where('teacher_id', $teacher->id)->get();
-            $classes = $classes->map(fn ($class) => $class->class_tag);
-            
-            $teacherinfo = [
-                'id' => $teacher->id,
-                'subject' => $teacher->subject,
-                'classes' => $classes
-            ];
-            return response()->json([
-                'user' => $user,
-                'teacher' => $teacherinfo,
-
-                'token' => $token,
-            ]);
-        }
-        if ($user->role == 'STDNT') {
-            $student = Student::with('class_tag')->where('user_id', $user->id)->first();
-            
-            $studentinfo = [
-                'id' => $student->id,
-                'class' => $student->class_tag
-            ];
-            return response()->json([
-                'user' => $user,
-                'student' => $studentinfo,
-
-                'token' => $token,
-            ]);
-        }
-
         return response()->json([
-            'user' => $user,
             'token' => $token,
         ]);
             
@@ -89,6 +55,39 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        return response()->json(['user' => $request->user()]);
+        $user = Auth::user();
+        if ($user->role == 'TCHR') {
+            $teacher = Teacher::with('subject')->where('user_id', $user->id)->first();
+            
+            $classes = TeacherToClass::with('class_tag')->where('teacher_id', $teacher->id)->get();
+            $classes = $classes->map(fn ($class) => $class->class_tag);
+            
+            $teacherinfo = [
+                'id' => $teacher->id,
+                'subject' => $teacher->subject,
+                'classes' => $classes
+            ];
+            return response()->json([
+                'user' => $user,
+                'teacher' => $teacherinfo,
+            ]);
+        }
+        if ($user->role == 'STDNT') {
+            $student = Student::with('class_tag')->where('user_id', $user->id)->first();
+            
+            $studentinfo = [
+                'id' => $student->id,
+                'class' => $student->class_tag
+            ];
+            return response()->json([
+                'user' => $user,
+                'student' => $studentinfo,
+            ]);
+        }
+
+        return response()->json([
+            'user' => $user,
+        ]);
+      
     }
 }

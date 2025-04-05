@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Student::class);
             $table->foreignIdFor(Assay::class);
+            $table->longText('comment')->nullable();
             $table->timestamps();
         });
     }

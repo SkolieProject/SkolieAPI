@@ -18,12 +18,12 @@ class TeacherToClass extends Model
 
     public function teacher(): HasOne
     {
-        return $this->hasOne(Teacher::class, 'id', 'teacher_id');
+        return $this->hasOne(Teacher::class, 'teacher_id', 'id');
     }
 
     public function class_tag(): HasOne
     {
-        return $this->hasOne(ClassTag::class, 'id', 'class_tag_id');
+        return $this->hasOne(ClassTag::class, 'class_tag_id', 'id');
     }
 
 }

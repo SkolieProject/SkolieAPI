@@ -11,6 +11,6 @@ class Alternative extends Model
 
     protected $fillable = [
         'question_id',
-        'alternative_text'
+        'description'
     ];
 }

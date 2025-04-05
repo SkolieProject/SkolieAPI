@@ -20,9 +20,13 @@ class Assay extends Model
         'is_answerable',
     ];
 
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class, 'assay_id', 'id');
+    }
 
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class, 'id', 'question_id');
+        return $this->hasMany(Question::class, 'assay_id', 'id');
     }
 }

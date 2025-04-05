@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Assay::class);
             $table->foreignIdFor(Alternative::class, 'correct_alternative')->nullable();
-            $table->string('question_text');
+            $table->string('asking');
             $table->timestamps();
         });
     }

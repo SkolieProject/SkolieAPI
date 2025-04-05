@@ -4,21 +4,16 @@ namespace App\Providers;
 
 use App\Models\Assay;
 use App\Policies\AssayPolicy;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
     protected $policies = [
         Assay::class => AssayPolicy::class,
     ];
 
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
+        $this->registerPolicies();
     }
 }

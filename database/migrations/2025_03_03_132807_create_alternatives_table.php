@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('alternatives', function (Blueprint $table) {
             $table->id();
-            $table->string('alternative_text');
+            $table->string('description');
             $table->foreignIdFor(Question::class);
             $table->timestamps();
         });

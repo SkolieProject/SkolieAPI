@@ -23,8 +23,15 @@ class Student extends Model
         return $this->hasOne(ClassTag::class, 'id', 'class_tag_id');
     }
 
-    public function answer(): HasMany
+
+    public function user(): HasOne
     {
-        return $this->hasMany(Answer::class, 'id', "answer_id");
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class, 'student_id', "id");
     }
 }

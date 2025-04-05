@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Teacher;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AssayAcessMiddleware
@@ -16,9 +17,9 @@ class AssayAcessMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $id = $request->user()->id;
-        $teacher = Teacher::where('user_id', $id)->first();
-        
+        $id = Auth::id();
+
+        $teacher = Teacher::where('user_id', $id)->firstOrFail();
 
         if ($request->subject_id != $teacher->subject_id) {
             return response()->json([

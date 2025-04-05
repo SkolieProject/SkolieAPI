@@ -12,18 +12,35 @@ class AnswerPolicy
     /**
      * Determine whether the user can view any models.
      */
-    // public function viewAny(User $user): bool
-    // {
-    //     return false;
-    // }
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Answer $answer): bool
+    public function view(User $user, Answer $answer): Response
     {
         $assay = Assay::find($answer->assay_id);
-        return $assay->is_answerable || $user->role === 'TCHR';
+        if ($user->role === 'TCHR') {
+
+            $teacher = User::where('user_id', $user->id);
+            $allowed = $teacher->id === $assay->teacher_id;
+        }
+
+        if ($user->role === 'STDNT') {
+
+            $student = User::where('user_id', $user->id);
+            $allowed = $student->id === $answer->student_id;
+        }
+
+        if ($allowed) {
+
+            return Response::allow();
+        }
+
+        return Response::deny('You cannot acess this answer');
     }
 
     /**

@@ -1,0 +1,13 @@
+[90m= [39m[34;4mApp\Models\Assay[39;24m {#6231
+    [34mid[39m: [35m1[39m,
+    [34mtitle[39m: "[32mGerenciamento[39m",
+    [34mdeadline[39m: "[32m2025-03-30 00:00:00[39m",
+    [34mclass_tag_id[39m: [36mnull[39m,
+    [34mis_visible[39m: [35m0[39m,
+    [34mis_answerable[39m: [35m0[39m,
+    [34msubject_id[39m: [35m2[39m,
+    [34mteacher_id[39m: [35m2[39m,
+    [34mcreated_at[39m: "[32m2025-04-02 17:39:35[39m",
+    [34mupdated_at[39m: "[32m2025-04-02 17:39:35[39m",
+  }
+

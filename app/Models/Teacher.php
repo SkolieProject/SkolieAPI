@@ -26,13 +26,13 @@ class Teacher extends Model
 
     public function subject(): HasOne
     {
-        return $this->hasOne(Subject::class, 'id', 'subject_id');
+        return $this->hasOne(Subject::class, 'subject_id', 'id');
     }
 
     
     public function classes(): HasMany
     {
-        return $this->HasMany(TeacherToClass::class, 'id', 'teacher_to_class_id');
+        return $this->HasMany(TeacherToClass::class, 'teacher_to_class_id', 'id');
     }
 
 

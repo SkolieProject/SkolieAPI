@@ -12,7 +12,7 @@ class Question extends Model
  
     protected $fillable = [
         'assay_id',
-        'question_text',
+        'asking',
         'correct_alternative'
     ];
 
@@ -20,8 +20,8 @@ class Question extends Model
 
 
 
-    public function alternative(): HasMany
+    public function alternatives(): HasMany
     {
-        return $this->hasMany(Alternative::class, 'id', 'alternative_id');
+        return $this->hasMany(Alternative::class, 'question_id', 'id');
     }
 }

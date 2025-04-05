@@ -12,6 +12,6 @@ class AnswerTemplate extends Model
     protected $fillable = [
         'answer_id',
         'question_id',
-        'answered'
+        'alternative_id'
     ];
 }
