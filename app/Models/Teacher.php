@@ -26,18 +26,23 @@ class Teacher extends Model
 
     public function subject(): HasOne
     {
-        return $this->hasOne(Subject::class, 'subject_id', 'id');
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
 
     
     public function classes(): HasMany
     {
-        return $this->HasMany(TeacherToClass::class, 'teacher_to_class_id', 'id');
+        return $this->HasMany(TeacherToClass::class, 'teacher_id', 'id');
     }
 
 
     public function assays(): HasMany
     {
-        return $this->hasMany(Assay::class, 'id', 'teacher_id');
+        return $this->hasMany(Assay::class, 'teacher_id', 'id');
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Calendar::class, 'teacher_id', 'id');
     }
 }

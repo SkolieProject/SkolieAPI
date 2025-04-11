@@ -23,7 +23,7 @@ class TeacherToClass extends Model
 
     public function class_tag(): HasOne
     {
-        return $this->hasOne(ClassTag::class, 'class_tag_id', 'id');
+        return $this->hasOne(ClassTag::class, 'teacher_id', 'id');
     }
 
 }
