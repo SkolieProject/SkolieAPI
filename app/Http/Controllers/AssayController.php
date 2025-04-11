@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AssayRequest;
 use App\Http\Requests\AssayRewriteRequest;
 use App\Models\Alternative;
-use App\Models\Answer;
 use App\Models\Assay;
 use App\Models\Question;
 use App\Models\Student;
-use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -22,18 +20,7 @@ class AssayController extends Controller
     {
         $this->authorizeResource(Assay::class, 'assay');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Assay $assay): JsonResponse
-    {
-        return response()->json([
-            'assay_header' => $assay->makeHidden('questions'),
-            'assay_body' => $this->assayBodyHandler($assay),
-        ]);
-    }
-
+    
     /**
      * Display a listing of the resource.
      */
@@ -52,6 +39,18 @@ class AssayController extends Controller
     }
     
     /**
+     * Display the specified resource.
+     */
+    public function show(Assay $assay): JsonResponse
+    {
+        return response()->json([
+            'assay_header' => $assay->makeHidden('questions'),
+            'assay_body' => $this->assayBodyHandler($assay),
+        ]);
+    }
+
+    
+    /**
      * Store a newly created resource in storage.
      */
     public function store(AssayRequest $request): JsonResponse
@@ -61,10 +60,11 @@ class AssayController extends Controller
         
         $assay = Assay::create([
             'title' => $assay_req['title'],
-            'deadline' => $assay_req['deadline'],
             'subject_id' => $assay_req['subject_id'],
             'teacher_id' => $teacher->id,
-            'class_tag_id' => $assay_req['class_tag_id'] ?? null
+            'class_tag_id' => $assay_req['class_tag_id'] ?? null,
+            'initial_date' => $assay_req['initial_date'] ?? null,
+            'final_date' => $assay_req['final_date'] ?? null,
         ]);
 
         foreach ($request['questions'] as $request_question) {
@@ -104,9 +104,10 @@ class AssayController extends Controller
 
         $assay->update([
             'title' => $assay_req['title'] ?? $assay->title,
-            'deadline' => $assay_req['deadline'] ?? $assay->deadline,
             'class_tag_id' => $assay_req['class_tag_id'] ?? $assay->class_tag_id,
             'subject_id' => $assay_req['subject_id'] ?? $assay->subject_id,
+            'initial_date' => $assay_req['initial_date'] ?? $assay->initial_date,
+            'final_date' => $assay_req['final_date'] ?? $assay->final_date,
         ]);
 
         
@@ -133,7 +134,14 @@ class AssayController extends Controller
     {
         $student = Student::where('user_id', $request->user()->id)->first();
         $assays = Assay::where('class_tag_id', $student->class_tag_id)
-            ->where('is_answerable', true);        
+            ->whereNot('initial_date', null)
+            ->whereNot('final_date', null)
+        ;
+
+        if ($request->boolean('answer-ready')) {
+            
+            $assays->where('is_answerable', true);
+        }
 
         if ($request->boolean('pendant')) {
             

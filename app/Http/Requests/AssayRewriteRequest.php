@@ -31,7 +31,8 @@ class AssayRewriteRequest extends FormRequest
         return [
             "id" => ['exists:assays,id', 'integer'],
             "title" => ["string"],
-            "deadline" => ["date", "format:Y-m-d"],
+            "initial_date" => ["date"],
+            "final_date" => ["date"],
             "subject_id" => ["exists:subjects,id"],
             "class_tag_id" => ["exists:class_tags,id"],
             "questions" => ["array"],

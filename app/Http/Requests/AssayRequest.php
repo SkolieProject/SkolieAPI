@@ -33,9 +33,10 @@ class AssayRequest extends FormRequest
     {
         return [
             "title" => ["required", "string"],
-            "deadline" => ["required", "date"],
             "subject_id" => ["required", "exists:subjects,id"],
             "class_tag_id" => ["exists:class_tags,id"],
+            "initial_date" => ["date"],
+            "final_date" => ["date"],
             "questions" => ["array"],
             "questions.*.asking" => ["required", "string"],
             "questions.*.alternatives" => ["array"],

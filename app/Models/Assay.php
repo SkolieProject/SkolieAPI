@@ -11,15 +11,21 @@ class Assay extends Model
     use HasFactory;
  
     protected $fillable = [
-        'title',
         'teacher_id',
         'class_tag_id',
-        'deadline',
         'subject_id',
+        'title',
         'is_visible',
         'is_answerable',
+        'initial_date',
+        'final_date',
     ];
 
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+    
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class, 'assay_id', 'id');
