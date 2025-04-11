@@ -12,7 +12,8 @@ class Answer extends Model
     
     protected $fillable = [
         'student_id',
-        'assay_id'
+        'assay_id',
+        'comment',
     ];
 
 
@@ -24,6 +25,11 @@ class Answer extends Model
     public function assay()
     {
         return $this->belongsTo(Assay::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasOne(Question::class, 'id', 'question_id');
     }
 
     public function student()
