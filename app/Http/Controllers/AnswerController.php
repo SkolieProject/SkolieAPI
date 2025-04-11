@@ -6,6 +6,7 @@ use App\Http\Requests\AnswerCommentRequest;
 use App\Http\Requests\AnswerRequest;
 use App\Models\Answer;
 use App\Models\Assay;
+use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -40,11 +41,13 @@ class AnswerController extends Controller
             'answer' => [
                 'answer_header' => [
                     'id' => $answer->id,
+                    'grade' => $answer->grade()->first()->score ?? 'in process',
                     'student' => [
                         'id' => $answer->student()->first()->id,
                         'name' => $answer->student()->first()->user()->first()->name,
                     ],
                     'assay_id' => $answer->assay_id,
+                    'comment' => $answer->comment ?? 'No comments yet',
                 ],
                 'answer_body' => $answer->answer_template()->get(),
             ]
@@ -90,6 +93,24 @@ class AnswerController extends Controller
         }, $answer_req['answers']);
         $answer->answer_template()->createMany($answers_templates);
 
+        $assay = $answer->assay()->first();
+        
+        $result = $answer->questions()->get()->map(function ($question_answer, $question_assay){
+            return $question_answer->alteanative_id == $question_assay->correct_answer;
+        },$assay->questions()->get());
+        $result = array_reduce($result, function ($carry, $item) {
+            if ($item) {
+                return $carry += 1;
+            }
+        }, 0);
+
+        Grade::create([
+            'answer_id' => $answer->id,
+            'student_id' => $answer->student()->first()->id,
+            'score' => $result
+        ]);
+
+
         return response()->json([
             'message' => 'Answer stored successfully',
             'answer_header' => $answer,
@@ -133,6 +154,7 @@ class AnswerController extends Controller
             
             return [
                 'id' => $answer->id,
+                'grade' => $answer->grade()->first()->score ?? 'in process',
                 'student' => [
                     'name' => $answer->student()->first()->user()->first()->name,
                     'id' => $answer->student()->first()->id,
@@ -168,6 +190,7 @@ class AnswerController extends Controller
         return $answers->get()->map(function ($answer) {
             return [
                 'id' => $answer->id,
+                'grade' => $answer->grade()->first()->score ?? 'in process',
                 'student' => [
                     'name' => $answer->student()->first()->user()->first()->name,
                     'id' => $answer->student()->first()->id,
