@@ -15,10 +15,10 @@ class AssaySettingsController extends Controller
       ], 400);
     }
     
-    $assay->update(['is_visible' => !$assay->is_visible]);
+    $assay->update(['is_visible' => ! $assay->is_visible]);
 
     return response()->json([
-      'message' => "Assay visibility is now " . ($assay->is_visible ? 'on' : 'off'),
+      'message' => "Assay answers visibility is now " . ($assay->is_visible ? 'on' : 'off'),
     ]);
   }
 
@@ -30,7 +30,13 @@ class AssaySettingsController extends Controller
       ], 400);
     }
 
-    $assay->update(['is_answerable' => !$assay->is_answerable]);
+    if ($assay->intial_date && $assay->final_date) {
+      return response()->json([
+        'message' => 'Assay is not with dates assigned',
+      ], 400);
+    }
+
+    $assay->update(['is_answerable' => ! $assay->is_answerable]);
 
     return response()->json([
       'message' => "Assay answerability is now " . ($assay->is_answerable ? 'on' : 'off'),
