@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('answer_templates', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Answer::class);
-            $table->foreignIdFor(Question::class); // Correct alternative o question
-            $table->foreignIdFor(Alternative::class);
+            $table->foreignIdFor(Question::class);
+            $table->foreignIdFor(Alternative::class, 'answered_alternative_id');
             $table->timestamps();
         });
     }
