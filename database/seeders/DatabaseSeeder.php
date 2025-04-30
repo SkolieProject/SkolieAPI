@@ -23,19 +23,23 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'role' => 'ADMIN',
             'email' => 'admin@admin.com',
-            'password' => '?!_-admin-_!?'
+            'password' => 'adminpassword'
         ]);
 
         $math = Subject::factory()->create([
             'subject_name' => 'Matemática'
         ]);
 
-        $eng = Subject::factory()->create([
+        $filo = Subject::factory()->create([
             'subject_name' => 'Inglês'
         ]);
         
         $em3a = ClassTag::factory()->create([
             'tag' =>  'EM3A'
+        ]);
+
+        $em3b = ClassTag::factory()->create([
+            'tag' =>  'EM3B'
         ]);
         
 
@@ -53,14 +57,15 @@ class DatabaseSeeder extends Seeder
         $user_teacher_two = User::factory()->teacher()->create([
             'name' => 'Roy Sollon',
             'role' => 'TCHR',
-            'email' => 'roy.sollono@example.com',
+            'email' => 'roy.sollon@example.com',
             'password' => 'password',
         ]);
         $teacher_two = Teacher::factory()->create([
             'user_id' => $user_teacher_two->id,  
-            'subject_id' => $eng->id
+            'subject_id' => $filo->id
         ]);
-        
+
+
         TeacherToClass::factory()->create([
             'teacher_id' => $teacher_one->id,
             'class_tag_id' => $em3a->id
@@ -71,13 +76,11 @@ class DatabaseSeeder extends Seeder
         ]);
         
 
-        Student::factory()->create([
-            'user_id' => User::factory()->student()->create([
-                'name' => 'João da Silva',
-                'email' => 'joao.silva@example.com',
-                'password' => 'password',            
-            ])->id,
+        Student::factory()->count(10)->create([
             'class_tag_id' => $em3a->id
+        ]);
+        Student::factory()->count(10)->create([
+            'class_tag_id' => $em3b->id
         ]);
     }
 }
