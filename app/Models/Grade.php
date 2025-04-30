@@ -12,6 +12,6 @@ class Grade extends Model
     protected $fillable = [
         'student_id',
         'answer_id',
-        'score'
+        'grade'
     ];
 }
