@@ -17,7 +17,7 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::prefix('admin/user')->group(function () {
+Route::prefix('admin/users')->group(function () {
     Route::get('/', [AdminController::class, 'getUsers'])->middleware(['auth:sanctum', AdminMiddleware::class]);
     Route::get('/{id}', [AdminController::class, 'getUser'])->middleware(['auth:sanctum', AdminMiddleware::class]);
     Route::post('/', [AdminController::class, 'register'])->middleware(['auth:sanctum', AdminMiddleware::class]);
